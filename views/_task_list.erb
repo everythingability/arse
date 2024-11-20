@@ -1,0 +1,5 @@
+<ul class="nes-list is-disc">
+  <% @tasks.each do |task| %>
+    <%= erb :_task, locals: { task: task } %>
+  <% end %>
+</ul>

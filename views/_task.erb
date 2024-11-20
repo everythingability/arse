@@ -1,0 +1,7 @@
+<li id="task-<%= task.id %>">
+  <!-- Checkbox to mark the task as done -->
+  <input type="checkbox" <%= 'checked' if task.done %> data-task-id="<%= task.id %>">
+  <%= task.description %>
+  <!-- Delete Button -->
+  <button class="nes-btn is-error delete-task" data-task-id="<%= task.id %>">Delete</button>
+</li>

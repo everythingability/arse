@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>jQuery + Sinatra Todo App</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <script>
+      function updateTask(taskId, done) {
+          $.ajax({
+              url: `/tasks/${taskId}`,
+              type: 'PATCH',
+              data: {
+                  done: done
+              },
+              success: function(response) {
+                  $(`#task-${taskId}`).replaceWith(response);
+              }
+          });
+      }
+
+      function deleteTask(taskId) {
+          $.ajax({
+              url: `/tasks/${taskId}`,
+              type: 'DELETE',
+              success: function() {
+                  $(`#task-${taskId}`).remove();
+              }
+          });
+      }
+
+      $(document).ready(function() {
+          // Handle form submission for new task
+          $('form#new-task-form').on('submit', function(e) {
+              e.preventDefault();
+              $.post('/tasks', $(this).serialize(), function(response) {
+                  $('.nes-list').replaceWith(response);
+                  $('form#new-task-form input[name=task]').val('');
+              });
+          });
+
+          // Handle task update
+          $(document).on('change', 'input[type=checkbox]', function() {
+              const taskId = $(this).data('task-id');
+              const done = $(this).is(':checked');
+              updateTask(taskId, done);
+          });
+
+          // Handle task delete
+          $(document).on('click', 'button.delete-task', function() {
+              const taskId = $(this).data('task-id');
+              deleteTask(taskId);
+          });
+      });
+  </script>
+</head>
+<body>
+<div class="nes-container main">
+  <h2>Todo List</h2>
+  <%= erb :_task_list %>
+
+  <form id="new-task-form" action="/tasks" method="post">
+    <input type="text" name="task" placeholder="New task">
+    <button type="submit">Add task</button>
+  </form>
+</div>
+</body>
+</html>

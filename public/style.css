@@ -1,0 +1,39 @@
+/* Place your custom styles here */
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.nes-container.main {
+  margin: 50px auto;
+  max-width: 500px;
+  padding: 20px;
+}
+
+.ryu {
+  height: 42px;
+  margin-right: 10px;
+}
+
+.validation-error {
+  color: red;
+}
+
+#task-form {
+  width: calc(100% - 110px);
+  display: inline-block;
+}
+
+.nes-btn.is-primary, .nes-btn.is-error {
+  display: inline-block;
+  margin-left: 10px;
+}
+.nes-container li{
+ margin-bottom:10px;
+}
+input {
+  margin:10px;
+}
+button{
+  margin:10px;
+}
